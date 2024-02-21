@@ -23,7 +23,7 @@ public class Plat{
     private String nom;
     private String descriptionPlat;
     private float prix;
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy="cartes")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy="plats")
     private List<Carte> cartes;
 
     @OneToOne(

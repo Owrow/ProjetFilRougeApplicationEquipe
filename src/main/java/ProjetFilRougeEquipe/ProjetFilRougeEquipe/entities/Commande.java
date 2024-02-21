@@ -20,6 +20,7 @@ public class Commande {
 	private int id;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_client")
 	private Client client;
 	
 	@OneToOne(fetch = FetchType.EAGER)

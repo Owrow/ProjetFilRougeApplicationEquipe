@@ -1,9 +1,7 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -16,5 +14,11 @@ public class Table {
     private int id;
     private int numero;
     private int nombrePlaces;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_restaurant")
+    @JsonIgnore
+    private Restaurant restaurant;
+
 
 }

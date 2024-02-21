@@ -2,6 +2,7 @@ package ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,10 +30,9 @@ public class Client {
     
     @OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_role")
+
     private Role role;
     
-    @OneToMany(mappedBy="commandes", cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_client")
-    private List<Commande> commandes;
+
   
 }
