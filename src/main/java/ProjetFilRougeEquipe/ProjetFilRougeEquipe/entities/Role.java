@@ -6,9 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-import java.time.LocalTime;
-import java.util.List;
-
 @Entity
 @jakarta.persistence.Table(name = "roles")
 @Data
