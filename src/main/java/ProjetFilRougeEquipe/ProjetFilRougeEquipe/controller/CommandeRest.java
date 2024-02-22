@@ -1,13 +1,18 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Commande;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.services.CommandeService;
@@ -16,6 +21,8 @@ import ProjetFilRougeEquipe.ProjetFilRougeEquipe.services.CommandeService;
 @CrossOrigin
 @RequestMapping("/commandes")
 public class CommandeRest {
+	
+	private static final Logger log = LoggerFactory.getLogger(CommandeRest.class);
 	
 	@Autowired
 	private CommandeService cdeservice;
@@ -28,6 +35,14 @@ public class CommandeRest {
 	@GetMapping(path="/{id}")
 	public ResponseEntity<Commande> findCdeById(@PathVariable("id") int id) {
 		return new ResponseEntity<>(cdeservice.findCdeById(id), HttpStatus.OK);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Void> ouvertureCde(@RequestBody Commande commande) {
+		cdeservice.ouvertureCde(commande.getClient().getId(), commande.getTable().getId());
+		log.info("Nouvelle commande ouverte : {}", commande);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+		
 	}
 
 }
