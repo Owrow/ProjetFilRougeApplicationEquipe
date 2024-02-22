@@ -1,6 +1,6 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +19,7 @@ public class Commande {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne( fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_client")
 	private Client client;
 	
