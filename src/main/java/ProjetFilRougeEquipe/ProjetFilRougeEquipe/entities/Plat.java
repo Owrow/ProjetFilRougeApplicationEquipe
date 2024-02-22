@@ -15,20 +15,18 @@ import lombok.Data;
 @Entity
 @jakarta.persistence.Table(name = "plats")
 @Data
-public class Plat{
+public class Plat {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String nom;
-    private String descriptionPlat;
-    private float prix;
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy="plats")
-    private List<Carte> cartes;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String nom;
+	private String descriptionPlat;
+	private float prix;
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "plats")
+	private List<Carte> cartes;
 
-    @OneToOne(
-			fetch = FetchType.EAGER
-			)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_categorie")
-    private Categorie categorie;
+	private Categorie categorie;
 }
