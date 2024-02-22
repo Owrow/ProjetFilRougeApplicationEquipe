@@ -1,5 +1,7 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,6 +17,8 @@ public class Equipe{
     private String  identifiant;
 
     private String mdp;
+	private String token;
+	private LocalDateTime expirationTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_role")
