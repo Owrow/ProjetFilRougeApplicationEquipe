@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -42,7 +44,17 @@ public class CommandeRest {
 		cdeservice.ouvertureCde(commande.getClient().getId(), commande.getTable().getId());
 		log.info("Nouvelle commande ouverte : {}", commande);
 		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/id")
+	public ResponseEntity<Commande> ajouterPlatCde(@RequestParam int id_commande, @RequestParam int id_plat) {
+		
+		cdeservice.ajouterPlatCde(id_commande, id_plat);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 		
 	}
-
+	
+	
+	
 }
