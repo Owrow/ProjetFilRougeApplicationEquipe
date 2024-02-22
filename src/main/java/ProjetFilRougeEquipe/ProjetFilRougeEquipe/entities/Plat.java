@@ -25,6 +25,8 @@ public class Plat {
 	private float prix;
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "plats")
 	private List<Carte> cartes;
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "plats")
+	private List<Commande> commandes;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_categorie")
