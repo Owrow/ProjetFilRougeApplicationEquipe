@@ -14,6 +14,7 @@ public class Table {
     private int id;
     private int numero;
     private int nombrePlaces;
+    private String etat;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_restaurant")
