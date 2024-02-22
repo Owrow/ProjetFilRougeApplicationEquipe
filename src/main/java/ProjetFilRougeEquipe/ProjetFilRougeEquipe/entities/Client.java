@@ -19,6 +19,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String nom;
     private String prenom;
     private String mail;
@@ -29,7 +30,6 @@ public class Client {
     
     @OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_role")
-
     private Role role;
     
 

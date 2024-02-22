@@ -1,6 +1,7 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.controller;
 
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Reservation;
+import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Table;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.services.ReservationService;
 
 import org.slf4j.Logger;
@@ -27,6 +28,12 @@ public class ReservationRest {
     public ResponseEntity<Reservation> find(@PathVariable("id") int id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
+
+    @PutMapping("/accept")
+    public ResponseEntity<Boolean>  AcceptReservation(int id, Table table){
+        return  new ResponseEntity<>(service.AcceptOrRefuseReservation(id,table), HttpStatus.OK );
+    }
+
 
 
 
