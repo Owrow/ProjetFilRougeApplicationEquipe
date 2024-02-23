@@ -1,5 +1,9 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.dto.CommandeDTO;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Commande;
+import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Plat;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.services.CommandeService;
 
 @RestController
@@ -53,18 +58,17 @@ public class CommandeRest {
 
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/statut/{id}")
 	public ResponseEntity<CommandeDTO> modifierStatutCommande(@PathVariable("id") int idCommande,
 			@RequestParam String newStatut) {
 
 		Commande commande = cdeservice.findCdeById(idCommande);
-
 		
-		commande.setEtat(newStatut);
-
 		cdeservice.modifierStatutCommande(idCommande, newStatut);
 		CommandeDTO commandeDTO = cdeservice.findCdeDTOById(idCommande);
 		return new ResponseEntity<>(commandeDTO, HttpStatus.OK);
 	}
+	
+
 
 }
