@@ -34,7 +34,13 @@ public class CommandeService {
 		    return dtoList;
 	}
 	
-	public CommandeDTO findCdeById(int id) {
+	public Commande findCdeById(int id) {
+		Commande commande =  cderepo.findById(id).get();
+		
+		return commande;
+	}
+	
+	public CommandeDTO findCdeDTOById(int id) {
 		Commande commande =  cderepo.findById(id).get();
 		CommandeDTO cdeDTO = new CommandeDTO(commande);
 		return cdeDTO;
@@ -69,6 +75,13 @@ public class CommandeService {
 		return cderepo.save(commande);
 		
 	}
+	
+	public Commande modifierStatutCommande(int idCommande, String newStatut) {
+        Commande commande = cderepo.findById(idCommande).get();
+      
+        commande.setEtat(newStatut);
+        return cderepo.save(commande);
+    }
 	
 
 }
