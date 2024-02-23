@@ -1,10 +1,11 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.repositories;
 
 
-import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Table;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
+import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Table;
 
 public interface TableRepository extends CrudRepository<Table, Integer> {
 
