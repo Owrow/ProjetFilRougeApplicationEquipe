@@ -1,7 +1,6 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.controller;
 
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Reservation;
-import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Table;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +26,8 @@ public class ReservationRest {
     }
 
     @PutMapping("/accept")
-    public ResponseEntity<Boolean>  AcceptReservation(int id, Table table){
-        return  new ResponseEntity<>(service.AcceptOrRefuseReservation(id,table), HttpStatus.OK );
+    public ResponseEntity<Boolean>  AcceptReservation(Reservation reservation){
+        return  new ResponseEntity<>(service.acceptOrRefuseReservation(reservation), HttpStatus.OK );
     }
 
 
