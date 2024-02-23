@@ -1,10 +1,12 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ProjetFilRougeEquipe.ProjetFilRougeEquipe.dto.CommandeDTO;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Client;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Commande;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Plat;
@@ -23,8 +25,13 @@ public class CommandeService {
 	@Autowired
 	private PlatRepository platrepo;
 	
-	public Iterable<Commande> findAll() {
-		return cderepo.findAll();
+	public Iterable<CommandeDTO> findAll() {
+		Iterable<Commande> commandes = cderepo.findAll();
+		 List<CommandeDTO> dtoList = new ArrayList<>();
+		    for (Commande commande : commandes) {
+		        dtoList.add(new CommandeDTO(commande));
+		    }
+		    return dtoList;
 	}
 	
 	public Commande findCdeById(int id) {
