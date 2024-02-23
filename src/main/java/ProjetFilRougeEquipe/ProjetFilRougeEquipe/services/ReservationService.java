@@ -1,14 +1,15 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.services;
 
 
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Reservation;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Table;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.repositories.ReservationRepository;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.repositories.TableRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ReservationService{
@@ -27,30 +28,37 @@ public class ReservationService{
         return repo.findById(id).get();
     }
 
-    public boolean acceptOrRefuseReservation(Reservation reservation) {
-        List<Table> tablesLibres = tableRepo.findByEtat("LIBRE");
-        for (Table table: tablesLibres) {
-            Table tableDisponible;
-            if (table.getNombrePlaces() >= reservation.getTailleGroupe()) {
-                tableDisponible = table;
-                reservation.setTable(tableDisponible);
-                reservation.setEtat("RESERVEE");
-                tableDisponible.setEtat("RESERVEE");
-                repo.save(reservation);
-                tableRepo.save(tableDisponible);
-                break;
-            }
-            return true;
-        }
-        return false;
-    }
+    public boolean acceptReservation(int id_reservation, int id_table) {
+        Reservation reservation = repo.findById(id_reservation).get();
+        Table table =  tableRepo.findById(id_table).get();
 
-    public Boolean EstPresent(Reservation reservation){
+        if (table.getNombrePlaces() < reservation.getTailleGroupe() || !table.getEtat().contains("LIBRE")) {
+        	return false;
+        } 
+        	reservation.setTable(table);
+        	reservation.setEtat("RESERVEE");
+        	table.setEtat("RESERVEE");
+        	repo.save(reservation);
+        	tableRepo.save(table);
+            return true;
+        
+    }
+    
+    public Reservation refuseReservation(int id_reservation) {
+    	Reservation reservation = repo.findById(id_reservation).get();
+    	reservation.setEtat("REFUSEE");
+    	repo.save(reservation);
+    	return reservation;
+    }
+    
+    
+    public Boolean EstPresent(int id_reservation){
+    	Reservation reservation = repo.findById(id_reservation).get();
         reservation.setEtat("RESERVED");
          repo.save(reservation);
          return true ;
+    	}
     }
-       }
 
 
 

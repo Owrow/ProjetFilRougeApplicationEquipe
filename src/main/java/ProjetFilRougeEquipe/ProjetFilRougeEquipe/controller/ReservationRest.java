@@ -29,17 +29,18 @@ public class ReservationRest {
     }
 
     @PutMapping("/accept")
-    public ResponseEntity<Boolean>  AcceptReservation(Reservation reservation){
-        return  new ResponseEntity<>(service.acceptOrRefuseReservation(reservation), HttpStatus.OK);
+    public ResponseEntity<Boolean>  AcceptReservation(@RequestParam int id_reservation,@RequestParam int id_table){
+        return  new ResponseEntity<>(service.acceptReservation(id_reservation, id_table), HttpStatus.OK);
     }
+    
+    @PutMapping("/refuse")
+    public ResponseEntity<Reservation>  RefuseReservation(@RequestParam int id_reservation){
+        return new ResponseEntity<>(service.refuseReservation(id_reservation), HttpStatus.OK);
+    }    
 
     @PutMapping("/present")
-    public ResponseEntity<Boolean> estPresent(Reservation reservation){
-        return new ResponseEntity<>(service.EstPresent(reservation), HttpStatus.OK );
+    public ResponseEntity<Boolean> estPresent(@RequestParam int id_reservation){
+        return new ResponseEntity<>(service.EstPresent(id_reservation), HttpStatus.OK );
     }
-
-
-
-
-
+    
 }
