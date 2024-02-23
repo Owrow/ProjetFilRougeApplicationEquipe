@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface TableRepository extends CrudRepository<Table, Integer> {
 
-    public List<Table> findByEtatEquals(String etat);
-
-
+    List<Table> findByEtatEquals(String etat);
+     List<Table> findByEtat(String etat);
 }

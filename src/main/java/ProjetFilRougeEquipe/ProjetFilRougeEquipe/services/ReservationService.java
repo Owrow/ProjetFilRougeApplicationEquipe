@@ -1,12 +1,13 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.services;
 
-import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Client;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Reservation;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Table;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.repositories.ReservationRepository;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.repositories.TableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ReservationService{
@@ -17,12 +18,6 @@ public class ReservationService{
     @Autowired
     private TableRepository tableRepo;
 
-
-    @Autowired
-    private TableService tableService;
-
-
-
     public Iterable<Reservation> findAll() {
         return repo.findAll();
     }
@@ -31,22 +26,23 @@ public class ReservationService{
         return repo.findById(id).get();
     }
 
-    public boolean AcceptOrRefuseReservation(int id, Table table){
-        Reservation reservation = repo.findById(id).get();
-       Iterable<Table> tableLibre = tableService.findByEtatEqualsLibre();
-       for( Table currentTable : tableLibre ) {
-           if (reservation.getTailleGroupe() == currentTable.getNombrePlaces()) {
-               table.setEtat("RESERVEE");
-               tableRepo.save(table);
-           }
-            if(currentTable.getEtat().equals("RESERVEE") || currentTable.getEtat().equals("OCCUPEE")){
-                       return false;
-                   }
-               }
-
-        return true;
+    public boolean acceptOrRefuseReservation(Reservation reservation) {
+        List<Table> tablesLibres = tableRepo.findByEtat("LIBRE");
+        for (Table table: tablesLibres) {
+            Table tableDisponible;
+            if (table.getNombrePlaces() >= reservation.getTailleGroupe()) {
+                tableDisponible = table;
+                reservation.setTable(tableDisponible);
+                reservation.setEtat("RESERVEE");
+                tableDisponible.setEtat("RESERVEE");
+                repo.save(reservation);
+                tableRepo.save(tableDisponible);
+                break;
+            }
+            return true;
+        }
+        return false;
     }
-
 
     public Boolean EstPresent(Reservation reservation){
         reservation.setEtat("RESERVED");

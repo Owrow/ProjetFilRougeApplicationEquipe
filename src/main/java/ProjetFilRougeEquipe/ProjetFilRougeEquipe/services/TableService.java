@@ -26,6 +26,12 @@ public class TableService {
     public List<Table> findByEtatEqualsLibre() { return repo.findByEtatEquals("LIBRE");}
     public List<Table> findByEtatEqualsOCcupee() { return repo.findByEtatEquals("OCCUPEE");}
      public List<Table> findByEtatEqualsReservee() { return repo.findByEtatEquals("RESERVEE");}
+
+    public Boolean EstPresent(Table table){
+        table.setEtat("RESERVED");
+        repo.save(table);
+        return true ;
+    }
 }
 
 
