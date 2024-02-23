@@ -35,7 +35,7 @@ public class CommandeRest {
 	}
 	
 	@GetMapping(path="/{id}")
-	public ResponseEntity<Commande> findCdeById(@PathVariable("id") int id) {
+	public ResponseEntity<CommandeDTO> findCdeById(@PathVariable("id") int id) {
 		return new ResponseEntity<>(cdeservice.findCdeById(id), HttpStatus.OK);
 	}
 	
