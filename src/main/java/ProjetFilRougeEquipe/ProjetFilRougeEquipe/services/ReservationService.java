@@ -19,8 +19,7 @@ public class ReservationService{
     private TableRepository tableRepo;
 
 
-    @Autowired
-    private TableService tableService;
+
 
 
 
