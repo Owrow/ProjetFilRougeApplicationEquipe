@@ -35,7 +35,15 @@ public class CommandeService {
 	}
 	
 	public Commande findCdeById(int id) {
-		return cderepo.findById(id).get();
+		Commande commande =  cderepo.findById(id).get();
+		
+		return commande;
+	}
+	
+	public CommandeDTO findCdeDTOById(int id) {
+		Commande commande =  cderepo.findById(id).get();
+		CommandeDTO cdeDTO = new CommandeDTO(commande);
+		return cdeDTO;
 	}
 	
 	public Commande ouvertureCde(int id_client, int id_table) {

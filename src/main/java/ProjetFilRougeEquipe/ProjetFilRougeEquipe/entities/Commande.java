@@ -40,4 +40,6 @@ public class Commande {
 	 private List<Plat> plats;
 	
 	private String etat;
+	
+	private float montant;
 }

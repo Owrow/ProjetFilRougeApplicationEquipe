@@ -34,9 +34,10 @@ public class CommandeRest {
 		return new ResponseEntity<>(cdeservice.findAll(), HttpStatus.OK);
 	}
 
-	@GetMapping(path = "/{id}")
-	public ResponseEntity<Commande> findCdeById(@PathVariable("id") int id) {
-		return new ResponseEntity<>(cdeservice.findCdeById(id), HttpStatus.OK);
+	@GetMapping(path="/{id}")
+	public ResponseEntity<CommandeDTO> findCdeDTOById(@PathVariable("id") int id) {
+
+		return new ResponseEntity<>(cdeservice.findCdeDTOById(id), HttpStatus.OK);
 	}
 
 	@PostMapping
@@ -53,14 +54,17 @@ public class CommandeRest {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Commande> modifierStatutCommande(@PathVariable("id") int idCommande,
+	public ResponseEntity<CommandeDTO> modifierStatutCommande(@PathVariable("id") int idCommande,
 			@RequestParam String newStatut) {
 
 		Commande commande = cdeservice.findCdeById(idCommande);
+
 		
 		commande.setEtat(newStatut);
+
 		cdeservice.modifierStatutCommande(idCommande, newStatut);
-		return new ResponseEntity<>(commande, HttpStatus.OK);
+		CommandeDTO commandeDTO = cdeservice.findCdeDTOById(idCommande);
+		return new ResponseEntity<>(commandeDTO, HttpStatus.OK);
 	}
 
 }
