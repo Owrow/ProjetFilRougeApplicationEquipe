@@ -78,10 +78,24 @@ public class CommandeService {
 	
 	public Commande modifierStatutCommande(int idCommande, String newStatut) {
         Commande commande = cderepo.findById(idCommande).get();
-      
+        if (newStatut.contentEquals("APAYER")) {
+			calculerMontantTotal(commande);
+		}
         commande.setEtat(newStatut);
         return cderepo.save(commande);
     }
+	
+	public Commande calculerMontantTotal (Commande commande) {
+		
+
+		Double montantplatsDouble = commande.getPlats().stream().mapToDouble(Plat::getPrix).sum();
+		float montantplatsFlaot = montantplatsDouble.floatValue();
+		
+		commande.setMontant(montantplatsFlaot);
+		
+		return commande;
+		
+	}
 	
 
 }
