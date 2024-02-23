@@ -68,5 +68,12 @@ public class CommandeService {
 		
 	}
 	
+	public Commande modifierStatutCommande(int idCommande, String newStatut) {
+        Commande commande = cderepo.findById(idCommande).get();
+      
+        commande.setEtat(newStatut);
+        return cderepo.save(commande);
+    }
+	
 
 }

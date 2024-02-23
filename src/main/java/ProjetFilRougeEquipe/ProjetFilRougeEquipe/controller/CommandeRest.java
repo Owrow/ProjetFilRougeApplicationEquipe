@@ -23,38 +23,44 @@ import ProjetFilRougeEquipe.ProjetFilRougeEquipe.services.CommandeService;
 @CrossOrigin
 @RequestMapping("/commandes")
 public class CommandeRest {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(CommandeRest.class);
-	
+
 	@Autowired
 	private CommandeService cdeservice;
-	
+
 	@GetMapping
 	public ResponseEntity<Iterable<CommandeDTO>> findAll() {
-			return new ResponseEntity<>(cdeservice.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(cdeservice.findAll(), HttpStatus.OK);
 	}
-	
-	@GetMapping(path="/{id}")
+
+	@GetMapping(path = "/{id}")
 	public ResponseEntity<Commande> findCdeById(@PathVariable("id") int id) {
 		return new ResponseEntity<>(cdeservice.findCdeById(id), HttpStatus.OK);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<Void> ouvertureCde(@RequestBody Commande commande) {
 		cdeservice.ouvertureCde(commande.getClient().getId(), commande.getTable().getId());
-		log.info("Nouvelle commande ouverte : {}", commande);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/id")
 	public ResponseEntity<Commande> ajouterPlatCde(@RequestParam int id_commande, @RequestParam int id_plat) {
-		
 		cdeservice.ajouterPlatCde(id_commande, id_plat);
-		
 		return new ResponseEntity<>(HttpStatus.OK);
-		
+
 	}
-	
-	
-	
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Commande> modifierStatutCommande(@PathVariable("id") int idCommande,
+			@RequestParam String newStatut) {
+
+		Commande commande = cdeservice.findCdeById(idCommande);
+		
+		commande.setEtat(newStatut);
+		cdeservice.modifierStatutCommande(idCommande, newStatut);
+		return new ResponseEntity<>(commande, HttpStatus.OK);
+	}
+
 }

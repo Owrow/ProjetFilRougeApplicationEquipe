@@ -1,6 +1,6 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.services;
 
-import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Client;
+
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Reservation;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Table;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.repositories.ReservationRepository;
