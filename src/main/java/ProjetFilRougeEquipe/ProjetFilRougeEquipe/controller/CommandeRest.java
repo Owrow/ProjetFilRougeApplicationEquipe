@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import ProjetFilRougeEquipe.ProjetFilRougeEquipe.dto.CommandeDTO;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Commande;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.services.CommandeService;
 
@@ -30,8 +30,8 @@ public class CommandeRest {
 	private CommandeService cdeservice;
 	
 	@GetMapping
-	public ResponseEntity<Iterable<Commande>> findAll() {
-		return new ResponseEntity<>(cdeservice.findAll(), HttpStatus.OK);
+	public ResponseEntity<Iterable<CommandeDTO>> findAll() {
+			return new ResponseEntity<>(cdeservice.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping(path="/{id}")
