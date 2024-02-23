@@ -18,11 +18,6 @@ public class ReservationService{
     @Autowired
     private TableRepository tableRepo;
 
-
-
-
-
-
     public Iterable<Reservation> findAll() {
         return repo.findAll();
     }
