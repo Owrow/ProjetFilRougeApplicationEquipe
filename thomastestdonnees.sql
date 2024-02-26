@@ -12,7 +12,7 @@ CREATE TABLE roles (
  
 	id          INT       NOT NULL PRIMARY KEY IDENTITY,
  
-	libelle   CHAR(6)   NOT NULL
+	libelle   VARCHAR(6)   NOT NULL
  
 );
  
@@ -33,11 +33,14 @@ CREATE TABLE clients (
  
 	prenom				VARCHAR(20)			NOT NULL,
  
-	mail			    VARCHAR(30)			NOT NULL,
+	mail			    VARCHAR(30)			NOT NULL UNIQUE,
  
 	telephone           VARCHAR(12)         NOT NULL,
  
-	mdp                 VARCHAR(255)         NOT NULL
+	mdp                 VARCHAR(255)         NOT NULL,
+	token				VARCHAR(255)		NULL,
+
+	expiration_time		DATETIME			NULL,
  
 );
 CREATE TABLE equipes (
@@ -52,9 +55,13 @@ CREATE TABLE equipes (
 	id_role		 INT       NOT NULL,	
 	id_restaurant int		NOT NULL,
  
-	identifiant   VARCHAR(255)   NOT NULL,
+	identifiant   VARCHAR(255)   NOT NULL UNIQUE,
  
-	mdp           VARCHAR(255)   NOT NULL
+	mdp           VARCHAR(255)   NOT NULL,
+
+	token		  VARCHAR(255)   NULL,
+
+	expiration_time DATETIME      NULL,
 );
 
 
@@ -117,7 +124,7 @@ CREATE TABLE tables (
 	id_restaurant		INT					NOT NULL,
 	numero				INT					NOT NULL,
 	nombre_places		INT					NULL,
-	etat				CHAR(10)			NOT NULL DEFAULT 'LIBRE'
+	etat				VARCHAR(10)			NOT NULL DEFAULT 'LIBRE'
 	
 );
 CREATE TABLE reservations (
@@ -134,7 +141,7 @@ CREATE TABLE reservations (
 	id_table			INT					NULL,
 	date_reservation	DATE				NOT NULL,
 	heure_reservation	TIME				NOT NULL,
-	etat				CHAR(10)			NOT NULL,
+	etat				VARCHAR(10)			NOT NULL,
 	taille_groupe		int					NOT NULL
 											
 ); 
@@ -152,7 +159,7 @@ CREATE TABLE commandes (
 	id_client			INT					NOT NULL,
 	id_table			INT					NOT NULL,
 	
-	etat				CHAR(10)			NOT NULL
+	etat				VARCHAR(10)			NOT NULL
 											
 );
 
@@ -177,7 +184,7 @@ CREATE TABLE factures (
 	id INT PRIMARY KEY IDENTITY,
 	id_commande INT 	,
 	
-	etat CHAR(10) NOT NULL
+	etat VARCHAR(10) NOT NULL
 );
 
  
@@ -280,20 +287,20 @@ FOREIGN KEY (id_plat) REFERENCES plats(id);
 
 
 INSERT INTO roles (libelle) values ('USER'),('TEAM'),('ADMIN');
-INSERT INTO categories (nom) VALUES ('Entrée'), ('Plat'), ('Dessert'), ('Boisson');
+INSERT INTO categories (nom) VALUES ('EntrÃ©e'), ('Plat'), ('Dessert'), ('Boisson');
 
  
-INSERT INTO cartes (nom) VALUES ('Printemps'), ('Eté'), ('Automne'), ('Hiver');
+INSERT INTO cartes (nom) VALUES ('Printemps'), ('EtÃ©'), ('Automne'), ('Hiver');
  
 
  
 INSERT INTO plats (id_categorie, nom, description_plat, prix) VALUES  
-    (1, 'Salade César', 'Salade verte, poulet grillé, parmesan, croûtons et sauce César', 8.99),    
-    (2, 'Spaghetti Bolognese', 'Spaghetti avec une sauce à la viande', 12.99),
-    (2, 'Poulet rôti', 'Poulet rôti avec légumes de saison', 15.99),  
-    (3, 'Tiramisu', 'Dessert italien au mascarpone et café', 7.99),
-    (3, 'Crème brûlée', 'Crème dessert avec une couche de sucre caramélisé', 6.49),  
-    (4, 'Vin rouge', 'Bouteille de vin rouge de la région', 18.99);
+    (1, 'Salade CÃ©sar', 'Salade verte, poulet grillÃ©, parmesan, croÃ»tons et sauce CÃ©sar', 8.99),    
+    (2, 'Spaghetti Bolognese', 'Spaghetti avec une sauce Ã  la viande', 12.99),
+    (2, 'Poulet rÃ´ti', 'Poulet rÃ´ti avec lÃ©gumes de saison', 15.99),  
+    (3, 'Tiramisu', 'Dessert italien au mascarpone et cafÃ©', 7.99),
+    (3, 'CrÃ¨me brÃ»lÃ©e', 'CrÃ¨me dessert avec une couche de sucre caramÃ©lisÃ©', 6.49),  
+    (4, 'Vin rouge', 'Bouteille de vin rouge de la rÃ©gion', 18.99);
 
 INSERT INTO plats_cartes (id_carte, id_plat) VALUES
 (4,1),
@@ -305,16 +312,16 @@ INSERT INTO plats_cartes (id_carte, id_plat) VALUES
 
  
 INSERT INTO restaurants (nom, id_carte, adresse, ouverture, fermeture) VALUES 
-('Pâte d''or', 4, '14 rue du Paradis 44000 NANTES', '12:00', '22:30'),
-('Pâte d''or', 4, '28 rue des Arts 75001 Paris', '12:00', '22:30'),
-('Pâte d''or', 4, '55 boulevard des bouchons 69000 LYON', '12:00', '22:30'),
-('Pâte d''or', 4,'3 rue du Jardin 13000 MARSEILLE', '12:00', '22:30');
+('PÃ¢te d''or', 4, '14 rue du Paradis 44000 NANTES', '12:00', '22:30'),
+('PÃ¢te d''or', 4, '28 rue des Arts 75001 Paris', '12:00', '22:30'),
+('PÃ¢te d''or', 4, '55 boulevard des bouchons 69000 LYON', '12:00', '22:30'),
+('PÃ¢te d''or', 4,'3 rue du Jardin 13000 MARSEILLE', '12:00', '22:30');
 
 
 INSERT INTO clients (id_role, nom, prenom, mail, telephone, mdp) VALUES
- (1,'Faure','Thomas','test@gmail.com',0606060606,'patate'),
- (1,'Mbongui','Sidney','test@gmail.com',0606060606,'patate'),
- (1,'Villeneuve','Severine','test@gmail.com',0606060606,'patate');
+ (1,'Faure','Thomas','test1@gmail.com',0606060606,'patate'),
+ (1,'Mbongui','Sidney','test2@gmail.com',0606060606,'patate'),
+ (1,'Villeneuve','Severine','test3@gmail.com',0606060606,'patate');
 
 INSERT INTO tables (id_restaurant, numero, nombre_places, etat) VALUES
 (1,1,4,'LIBRE'),

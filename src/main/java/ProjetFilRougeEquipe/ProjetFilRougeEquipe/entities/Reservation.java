@@ -1,5 +1,6 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,8 +24,9 @@ public class Reservation {
     @JoinColumn(name = "id_client")
     private Client client;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_table")
+    @JsonIgnore
     private Table table;
 
     private LocalDate dateReservation;

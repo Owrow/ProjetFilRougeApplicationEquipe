@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ProjetFilRougeEquipe.ProjetFilRougeEquipe.services.ClientService;
+import ProjetFilRougeEquipe.ProjetFilRougeEquipe.services.EquipeService;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/logout")
 public class LogoutController {
-@Autowired private ClientService cService;
+@Autowired private EquipeService eService;
 
 	@GetMapping
 	public void logout(@RequestHeader("token") String token) {
-		cService.logout(token);
+		eService.logout(token);
 	}
 }

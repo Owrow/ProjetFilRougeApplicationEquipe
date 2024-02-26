@@ -1,0 +1,39 @@
+# Restaurant PATE D'OR - Application Equipe #
+Cette application est destinée aux équipes des 4 restaurants Pâte d'Or de notre client et doit permettre de visualiser les demandes de réservation,
+ de les gérer, d'en modifier leur statut, d'associer ces réservations à des tables disponibles, de prendre les commandes des clients
+ et d'éditer les notes à payer.
+
+
+# Prérequis # :
+Liste des prérequis nécessaires pour exécuter le projet :
+
+Java: 17.0.9
+Framework : Spring-Boot
+Maven: apache-maven-3.9.5
+Base de données: SQL
+IDE : Eclipse 2023.09
+OS : Windows 10
+
+# Installation #
+Instructions pour installer et configurer le projet :
+
+Cloner le dépôt depuis GitHub : git clone https://github.com/Owrow/ProjetFilRougeApplicationEquipe.git
+Se déplacer dans le répertoire du projet : cd votre-projet
+Compiler et exécuter le projet : mvnw spring-boot:run 
+Accéder à l'application dans un navigateur web : http://localhost:8080 
+
+# Configuration #
+Section décrivant les différentes configurations disponibles dans le projet, y compris les fichiers de configuration, les paramètres d'environnement, etc.
+
+# Utilisation #
+Cette application constitue la partie back-end du projet. 
+La partie Front-end a été développée en TypreScript et son framework ANGULAR.
+
+# Contributeurs #
+Thomas FAURE,
+Sidney M'BONGUI,
+Séverine VILLENEUVE
+
+pour le client : Etienne CASSIN.
+
+Licence :

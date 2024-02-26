@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Client;
-import ProjetFilRougeEquipe.ProjetFilRougeEquipe.services.ClientService;
+import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Equipe;
+import ProjetFilRougeEquipe.ProjetFilRougeEquipe.services.EquipeService;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class LoggedInFilter implements Filter {
-	@Autowired private ClientService cService;
+	@Autowired private EquipeService eqService;
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpReq = (HttpServletRequest) request;
@@ -39,7 +39,7 @@ public class LoggedInFilter implements Filter {
 		}
 		
 	
-		Client user = cService.getByToken(auth);
+		Equipe user = eqService.getByToken(auth);
 		if (user == null) {
 			httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
 		} else {
