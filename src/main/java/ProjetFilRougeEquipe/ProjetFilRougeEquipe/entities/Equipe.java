@@ -20,7 +20,7 @@ public class Equipe{
 	@JoinColumn(name = "id_role")
     private Role role;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_restaurant")
     private Restaurant restaurant;
 
