@@ -25,25 +25,28 @@ public class LoggedInFilter implements Filter {
 		HttpServletResponse httpResp = (HttpServletResponse) response;
 		
 		
-		if ("/login".equals(httpReq.getServletPath())
-				|| "OPTIONS".equals(httpReq.getMethod())) {
-			chain.doFilter(request, response);
-			return;
-		}
-
-
-		String auth = httpReq.getHeader("token");
-		if (auth == null || auth.isBlank()) {
-			httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
-			return;
-		}
+		chain.doFilter(request, response);
+		return;
 		
-	
-		Equipe user = eqService.getByToken(auth);
-		if (user == null) {
-			httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
-		} else {
-			chain.doFilter(request, response);
-		}
+//		if ("/login".equals(httpReq.getServletPath())
+//				|| "OPTIONS".equals(httpReq.getMethod())) {
+//			chain.doFilter(request, response);
+//			return;
+//		}
+//
+//
+//		String auth = httpReq.getHeader("token");
+//		if (auth == null || auth.isBlank()) {
+//			httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
+//			return;
+//		}
+//		
+//	
+//		Equipe user = eqService.getByToken(auth);
+//		if (user == null) {
+//			httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
+//		} else {
+//			chain.doFilter(request, response);
+//		}
 	}
 }
