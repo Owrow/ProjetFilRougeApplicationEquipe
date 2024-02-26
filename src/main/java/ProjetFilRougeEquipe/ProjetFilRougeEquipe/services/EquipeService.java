@@ -1,6 +1,10 @@
 package ProjetFilRougeEquipe.ProjetFilRougeEquipe.services;
 
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import java.util.List;
 import java.util.Random;
 
@@ -36,7 +40,8 @@ public class EquipeService {
 		return equipeList;
 
 	}
-
+	
+	
 	public Equipe findById(int id) {
 		Equipe equipe = eqrepo.findById(id).get();
 		return equipe;
@@ -74,5 +79,44 @@ public class EquipeService {
 		eqrepo.delete(equipe);
 		return equipe;
 
+	}
+	
+	
+	public Equipe getByLoginAndPassword(String login, String password) {
+		Equipe user = eqrepo.findByIdentifiantIsAndMdpIs(login, password);
+		if (user != null) {
+			user.setToken(generateToken());
+			user.setExpirationTime(LocalDateTime.now().plusMinutes(30));
+			eqrepo.save(user);
+		}
+		return user;
+	}
+	
+	public Equipe getByToken(String token) {
+		Equipe user = eqrepo.findByTokenIsAndExpirationTimeAfter(token, LocalDateTime.now());
+		if (user != null) {
+			user.setExpirationTime(LocalDateTime.now().plusMinutes(30));
+			eqrepo.save(user);
+		}
+		return user;
+	}
+
+	public void logout(String token) {
+		Equipe user = eqrepo.findByTokenIsAndExpirationTimeAfter(token, LocalDateTime.now());
+		if (user != null) {
+			user.setToken(null);
+			user.setExpirationTime(null);
+			eqrepo.save(user);
+		}
+	}
+	
+	
+	private static final SecureRandom secureRandom = new SecureRandom();
+	private static final Encoder base64encoder = Base64.getUrlEncoder();
+	
+	private String generateToken() {
+		byte[] randomBytes = new byte[48];
+		secureRandom.nextBytes(randomBytes);
+		return base64encoder.encodeToString(randomBytes);
 	}
 }
