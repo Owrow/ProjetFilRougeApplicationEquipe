@@ -20,10 +20,10 @@ public class EquipeService {
 
 	@Autowired
 	private EquipeRepository eqrepo;
-	
+
 	@Autowired
 	private RoleRepository rolerepo;
-	
+
 	@Autowired
 	private RestaurantRepository restorepo;
 
@@ -48,28 +48,31 @@ public class EquipeService {
 		return eqdto;
 
 	}
-	
-	public Equipe creationEquipier(int id_role, int id_restaurant, String identifiant ) {
+
+	public Equipe creationEquipier(int id_role, int id_restaurant, String identifiant) {
 		Equipe newEquipier = new Equipe();
 		Role associerRole = rolerepo.findById(id_role).get();
 		Restaurant associerResto = restorepo.findById(id_restaurant).get();
-		
+
 		newEquipier.setRole(associerRole);
 		newEquipier.setRestaurant(associerResto);
 		newEquipier.setIdentifiant(identifiant);
-		
+
 		Random randomMdp = new Random();
 		int nombreAleatoire = randomMdp.nextInt(10000);
-		String mdpAleatoire = String.format("%04d", nombreAleatoire); 
+		String mdpAleatoire = String.format("%04d", nombreAleatoire);
 		newEquipier.setMdp(mdpAleatoire);
-		
+
 		eqrepo.save(newEquipier);
-		
+
 		return newEquipier;
-		
-		
-	
-		
+
 	}
 
+	public Equipe deleteEquipier(int id) {
+		Equipe equipe = eqrepo.findById(id)	.get();	
+		eqrepo.delete(equipe);
+		return equipe;
+
+	}
 }
