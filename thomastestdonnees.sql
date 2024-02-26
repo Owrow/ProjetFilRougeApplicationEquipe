@@ -159,7 +159,8 @@ CREATE TABLE commandes (
 	id_client			INT					NOT NULL,
 	id_table			INT					NOT NULL,
 	
-	etat				VARCHAR(10)			NOT NULL
+	etat				VARCHAR(10)			NOT NULL,
+	montant				FLOAT				NULL
 											
 );
 
@@ -173,19 +174,6 @@ CREATE TABLE plats_commandes (
 	id_commande  INT,
 	id_plat INT
 	);
-
-
-CREATE TABLE factures (
-	createdAt          DATETIME DEFAULT CURRENT_TIMESTAMP,     
- 
-	updatedAt          DATETIME DEFAULT CURRENT_TIMESTAMP,
- 
-	deletedAT          DATETIME NULL,
-	id INT PRIMARY KEY IDENTITY,
-	id_commande INT 	,
-	
-	etat VARCHAR(10) NOT NULL
-);
 
  
 CREATE TABLE restaurants (
@@ -237,12 +225,7 @@ WITH CHECK ADD
 FOREIGN KEY (id_role) REFERENCES roles(id);
  
 
- 
-ALTER TABLE factures
-WITH CHECK ADD
-FOREIGN KEY (id_commande) REFERENCES commandes(id); 
 
- 
 ALTER TABLE tables
 WITH CHECK ADD
 FOREIGN KEY (id_restaurant) REFERENCES restaurants(id) ON DELETE CASCADE
@@ -312,10 +295,10 @@ INSERT INTO plats_cartes (id_carte, id_plat) VALUES
 
  
 INSERT INTO restaurants (nom, id_carte, adresse, ouverture, fermeture) VALUES 
-('Pâte d''or', 4, '14 rue du Paradis 44000 NANTES', '12:00', '22:30'),
-('Pâte d''or', 4, '28 rue des Arts 75001 Paris', '12:00', '22:30'),
-('Pâte d''or', 4, '55 boulevard des bouchons 69000 LYON', '12:00', '22:30'),
-('Pâte d''or', 4,'3 rue du Jardin 13000 MARSEILLE', '12:00', '22:30');
+('Pâte d''or Nantes', 4, '14 rue du Paradis 44000 NANTES', '12:00', '22:30'),
+('Pâte d''or Paris', 4, '28 rue des Arts 75001 Paris', '12:00', '22:30'),
+('Pâte d''or Lyon', 4, '55 boulevard des bouchons 69000 LYON', '12:00', '22:30'),
+('Pâte d''or Marseille', 4,'3 rue du Jardin 13000 MARSEILLE', '12:00', '22:30');
 
 
 INSERT INTO clients (id_role, nom, prenom, mail, telephone, mdp) VALUES
@@ -334,8 +317,8 @@ INSERT INTO reservations (id_client, id_restaurant, id_table, date_reservation, 
 (1,1,1,'2024-05-05','12:00','RESERVED',5),
 (1,1,1,'2024-05-05','19:00','PENDING',5);
 
-INSERT INTO commandes (id_client, id_table, etat) VALUES
-(1,5,'REGLEE')
+INSERT INTO commandes (id_client, id_table, etat, montant) VALUES
+(1,5,'REGLEE',40.97)
 
 INSERT INTO plats_commandes (id_commande, id_plat) VALUES
 (1,1),
@@ -345,11 +328,8 @@ INSERT INTO plats_commandes (id_commande, id_plat) VALUES
 INSERT INTO equipes (id_role, id_restaurant, identifiant, mdp) VALUES
 (2,1,'ThomasF','patate'),
 (2,1,'SidenyM','patate'),
-(2,1,'SeverineV','patate');
+(3,1,'SeverineV','patate');
 
-
-INSERT INTO factures (id_commande, etat) VALUES
-(1,'REGLEE');
 
 INSERT INTO messages (id_client, id_restaurant,message_text) VALUES
 (1,1,'Bonjour nous souhaitons reserver pour 5');
