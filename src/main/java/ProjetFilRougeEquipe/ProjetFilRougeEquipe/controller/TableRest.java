@@ -17,16 +17,21 @@ public class TableRest {
     private TableService service;
 
 
-@GetMapping
+    @GetMapping
     public ResponseEntity<Iterable<Table>>  findAll() { return new ResponseEntity<>( service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Table>  findById( @PathVariable int id) { return new ResponseEntity<>( service.findById(id), HttpStatus.OK);
     }
+    
     @PutMapping("/present/table")
-    public ResponseEntity<Boolean>  EstPresent(Table table){
-        return new ResponseEntity<>(service.EstPresent(table), HttpStatus.OK);
-
+    public ResponseEntity<Table>  EstPresent(int id_table){
+        return new ResponseEntity<>(service.EstPresent(id_table), HttpStatus.OK);
     }
+    
+    @GetMapping(path = "/{id}/etat")
+    public ResponseEntity<Table>  changementEtat( @PathVariable int id, @RequestParam String etat) { return new ResponseEntity<>( service.changementEtat(id, etat), HttpStatus.OK);
+    }
+    
 }
