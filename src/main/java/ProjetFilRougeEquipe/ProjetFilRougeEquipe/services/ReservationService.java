@@ -22,6 +22,9 @@ public class ReservationService{
     @Autowired
     private TableRepository tableRepo;
 
+    @Autowired
+    private EmailService emailService;
+
     public Iterable<Reservation> findAll() {
         return repo.findAll();
     }
@@ -61,7 +64,7 @@ public class ReservationService{
         	table.setEtat("RESERVEE");
         	repo.save(reservation);
         	tableRepo.save(table);
-        	
+            mailClientAcceptResa(id_reservation);
             return reservation;
         
     }
@@ -70,6 +73,7 @@ public class ReservationService{
     	Reservation reservation = repo.findById(id_reservation).get();
     	reservation.setEtat("REFUSEE");
     	repo.save(reservation);
+        mailClientRefuseResa(id_reservation);
     	return reservation;
     }
     
@@ -80,6 +84,25 @@ public class ReservationService{
          repo.save(reservation);
          return reservation ;
     	}
+
+    public void mailClientAcceptResa(int id_reservation) {
+        Reservation reservation = repo.findById(id_reservation).get();
+        String destinataire = reservation.getClient().getMail();
+        String sujet = "Notification de Réservation";
+        String contenu = "Votre réservation a été confirmée, nous vous attendons le"
+                + reservation.getDateReservation() + " à " + reservation.getHeureReservation() + ". Nous sommes trés heureux de vous recevoir dans notre établissement";
+        emailService.envoyerEmailSimple(destinataire, sujet, contenu);
+    }
+  public void mailClientRefuseResa(int id_reservation) {
+        Reservation reservation = repo.findById(id_reservation).get();
+        String destinataire = reservation.getClient().getMail();
+        String sujet = "Notification de Réservation";
+        String contenu = "Malheureusement nous ne pouvons accepter votre reservation car le restaurant est complet.";
+        emailService.envoyerEmailSimple(destinataire, sujet, contenu);
+    }
+
+
+
     }
 
 

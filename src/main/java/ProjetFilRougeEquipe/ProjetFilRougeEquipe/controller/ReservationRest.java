@@ -38,7 +38,7 @@ public class ReservationRest {
     @PutMapping("/accept")
     public ResponseEntity<ReservationDTO>  AcceptReservation(@RequestParam int id_reservation,@RequestParam int id_table){
     	service.acceptReservation(id_reservation, id_table);
-    	ReservationDTO resaDTO = service.findResaDTOById(id_reservation);
+        ReservationDTO resaDTO = service.findResaDTOById(id_reservation);
         return  new ResponseEntity<>(resaDTO, HttpStatus.OK);
     }
     
