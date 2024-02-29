@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.dto.EquipeDTO;
+import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Equipe;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.services.EquipeService;
 
 @RestController
@@ -36,9 +37,9 @@ public class EquipeRest {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> creationEquipier(@RequestParam int id_role, @RequestParam int id_restaurant, @RequestParam String identifiant) {
-		eqservice.creationEquipier(id_role, id_restaurant, identifiant);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+	public ResponseEntity<Equipe> creationEquipier(@RequestParam int id_role, @RequestParam int id_restaurant, @RequestParam String identifiant) {
+		Equipe equipe = eqservice.creationEquipier(id_role, id_restaurant, identifiant);
+		return new ResponseEntity<>(equipe,HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping(path="/{id}")

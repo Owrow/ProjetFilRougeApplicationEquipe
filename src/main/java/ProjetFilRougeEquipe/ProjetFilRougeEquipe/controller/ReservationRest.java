@@ -37,22 +37,18 @@ public class ReservationRest {
 
     @PutMapping("/accept")
     public ResponseEntity<ReservationDTO>  AcceptReservation(@RequestParam int id_reservation,@RequestParam int id_table){
-        Reservation reservation = service.acceptReservation(id_reservation, id_table);
-        if (reservation==null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        ReservationDTO resaDTO = service.findResaDTOById(id_reservation);
+
+    	Reservation reservation = service.acceptReservation(id_reservation, id_table);
+    	if (reservation==null) {
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	}
+    	ReservationDTO resaDTO = service.findResaDTOById(id_reservation);
         return  new ResponseEntity<>(resaDTO, HttpStatus.OK);
     }
     
     @PutMapping("/refuse")
     public ResponseEntity<ReservationDTO>  RefuseReservation(@RequestParam int id_reservation){
-    	Reservation reservation = service.refuseReservation(id_reservation);
-    	
-    	if (reservation==null) {
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	}
-    	
+    	service.refuseReservation(id_reservation);
     	ReservationDTO resaDTO = service.findResaDTOById(id_reservation);
         return new ResponseEntity<>(resaDTO, HttpStatus.OK);
     }    
