@@ -28,33 +28,8 @@ public class LoggedInFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpReq = (HttpServletRequest) request;
 		HttpServletResponse httpResp = (HttpServletResponse) response;
-		
-<<<<<<< HEAD
-		
-		chain.doFilter(request, response);
-		return;
-		
-//		if ("/login".equals(httpReq.getServletPath())
-//				|| "OPTIONS".equals(httpReq.getMethod())) {
-//			chain.doFilter(request, response);
-//			return;
-//		}
-//
-//
-//		String auth = httpReq.getHeader("token");
-//		if (auth == null || auth.isBlank()) {
-//			httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
-//			return;
-//		}
-//		
-//	
-//		Equipe user = eqService.getByToken(auth);
-//		if (user == null) {
-//			httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
-//		} else {
-//			chain.doFilter(request, response);
-//		}
-=======
+
+
 //		chain.doFilter(request, response);
 //		return;
 
@@ -88,6 +63,6 @@ public class LoggedInFilter implements Filter {
 				
 			}
 		}
->>>>>>> ce387e08f3285a9641dc8de3bf67a81fcd9aa5fd
+
 	}
 }
