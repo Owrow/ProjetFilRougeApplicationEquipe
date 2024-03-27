@@ -304,7 +304,8 @@ INSERT INTO restaurants (nom, id_carte, adresse, ouverture, fermeture) VALUES
 INSERT INTO clients (id_role, nom, prenom, mail, telephone, mdp) VALUES
  (1,'Faure','Thomas','test1@gmail.com',0606060606,'patate'),
  (1,'Mbongui','Sidney','test2@gmail.com',0606060606,'patate'),
- (1,'Villeneuve','Severine','test3@gmail.com',0606060606,'patate');
+ (1,'Villeneuve','Severine','test3@gmail.com',0606060606,'patate'),
+ (1,'Cassin','Etienne','test4@gmail.com',0606060606,'patate');
 
 INSERT INTO tables (id_restaurant, numero, nombre_places, etat) VALUES
 (1,1,4,'LIBRE'),
@@ -314,7 +315,7 @@ INSERT INTO tables (id_restaurant, numero, nombre_places, etat) VALUES
 (1,5,4,'OCCUPEE');
 
 INSERT INTO reservations (id_client, id_restaurant, id_table, date_reservation, heure_reservation, etat, taille_groupe) VALUES
-(1,1,1,'2024-05-05','12:00','RESERVED',5),
+(4,1,1,'2024-05-05','12:00','RESERVED',5),
 (1,1,1,'2024-05-05','19:00','PENDING',5);
 
 INSERT INTO commandes (id_client, id_table, etat, montant) VALUES

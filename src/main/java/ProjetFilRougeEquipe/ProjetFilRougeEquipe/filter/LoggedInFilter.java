@@ -28,6 +28,7 @@ public class LoggedInFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpReq = (HttpServletRequest) request;
 		HttpServletResponse httpResp = (HttpServletResponse) response;
+
 		
 		chain.doFilter(request, response);
 		return;
@@ -64,4 +65,5 @@ public class LoggedInFilter implements Filter {
 //		}
 //	}
 }
+
 }
