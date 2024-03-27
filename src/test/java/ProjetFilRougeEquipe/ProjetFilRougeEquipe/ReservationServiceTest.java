@@ -18,6 +18,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+
 public class ReservationServiceTest {
 
     @Mock
@@ -52,4 +53,5 @@ public class ReservationServiceTest {
                 + ". Nous sommes trés heureux de vous recevoir dans notre établissement";
         verify(emailService).envoyerEmailSimple(clientMock.getMail(), "Notification de Réservation", contenuAttendu);
     }
+     
 }
