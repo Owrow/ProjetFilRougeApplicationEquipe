@@ -3,6 +3,7 @@ package ProjetFilRougeEquipe.ProjetFilRougeEquipe.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Client;
 import ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities.Reservation;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import lombok.Setter;
 public class ReservationDTO {
 	
 	private int id;
-	private int id_client;
+	private Client client;
 	private int id_restaurant;
 	private int id_table;
 	private int tailleGroupe;
@@ -24,7 +25,7 @@ public class ReservationDTO {
 	public ReservationDTO(Reservation reservation) {
 		super();
 		this.id = reservation.getId();
-		this.id_client = reservation.getClient().getId();
+		this.client = reservation.getClient();
 		this.id_restaurant = reservation.getRestaurant().getId();
 		this.id_table = reservation.getTable().getId();
 		this.tailleGroupe = reservation.getTailleGroupe();
