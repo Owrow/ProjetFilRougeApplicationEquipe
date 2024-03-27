@@ -19,7 +19,6 @@ public class ReservationDTO {
     private LocalTime heureReservation;
 	
 	public ReservationDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public ReservationDTO(Reservation reservation) {
@@ -33,8 +32,4 @@ public class ReservationDTO {
 		this.dateReservation = reservation.getDateReservation();
 		this.heureReservation = reservation.getHeureReservation();
 	}
-	
-	
-	
-	
 }
