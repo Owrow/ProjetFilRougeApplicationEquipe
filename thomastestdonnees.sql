@@ -327,7 +327,7 @@ INSERT INTO plats_commandes (id_commande, id_plat) VALUES
 
 INSERT INTO equipes (id_role, id_restaurant, identifiant, mdp) VALUES
 (2,1,'ThomasF','patate'),
-(2,1,'SidenyM','patate'),
+(2,1,'SidneyM','patate'),
 (3,1,'SeverineV','patate');
 
 

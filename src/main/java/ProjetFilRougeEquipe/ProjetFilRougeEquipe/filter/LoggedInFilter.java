@@ -29,38 +29,39 @@ public class LoggedInFilter implements Filter {
 		HttpServletRequest httpReq = (HttpServletRequest) request;
 		HttpServletResponse httpResp = (HttpServletResponse) response;
 		
-//		chain.doFilter(request, response);
-//		return;
+		chain.doFilter(request, response);
+		return;
 
-		if ("/login".equals(httpReq.getServletPath())
-				|| "OPTIONS".equals(httpReq.getMethod())) {
-			chain.doFilter(request, response);
-			return;
-		}
-
-		String auth = httpReq.getHeader("token");
-		if (auth == null || auth.isBlank()) {
-			httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
-			return;
-		}
-
-		Equipe user = eqService.getByToken(auth);
-		if (user == null) {
-			httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
-		} else {
-			if(user.getRole().getId()==ROLE_ADMIN) {
-				if ("/equipes".equals(httpReq.getServletPath()) || "/logout".equals(httpReq.getServletPath())) {
-					chain.doFilter(request, response);
-				} else {httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
-				}
-			}
-			else {
-				if (!"/equipes".equals(httpReq.getServletPath()) || "/logout".equals(httpReq.getServletPath())) {
-				chain.doFilter(request, response);
-			} else {httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
-			}
-				
-			}
-		}
-	}
+//		if ("/login".equals(httpReq.getServletPath())
+//				|| "OPTIONS".equals(httpReq.getMethod())) {
+//			chain.doFilter(request, response);
+//			return;
+//		}
+//
+//		String auth = httpReq.getHeader("token");
+//		if (auth == null || auth.isBlank()) {
+//			httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
+//			return;
+//		}
+//
+//		Equipe user = eqService.getByToken(auth);
+//		if (user == null) {
+//			httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
+//		} else {
+//			if(user.getRole().getId()==ROLE_ADMIN) {
+//				if ("/equipes".equals(httpReq.getServletPath()) || "/logout".equals(httpReq.getServletPath())) {
+//					chain.doFilter(request, response);
+//				} else {httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
+//				}
+//			}
+//			else {
+//				if (!"/equipes".equals(httpReq.getServletPath()) || "/logout".equals(httpReq.getServletPath())) {
+//				chain.doFilter(request, response);
+//			} else {httpResp.sendError(HttpStatus.UNAUTHORIZED.value());
+//			}
+//				
+//			}
+//		}
+//	}
+}
 }
