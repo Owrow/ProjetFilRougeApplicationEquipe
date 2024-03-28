@@ -14,7 +14,7 @@ public class CommandeDTO {
 	private int id;
 	private int idClient;
 	private int idTable;
-	private List<Integer> idPlats;
+	private List<PlatDTO> plats;
 	private String etatCommande;
 	private float montant;
 
@@ -29,7 +29,7 @@ public class CommandeDTO {
 		this.id = commande.getId();
 		this.idClient = commande.getClient().getId();
 		this.idTable = commande.getTable().getId();
-		this.idPlats = commande.getPlats().stream().map(Plat::getId).collect(Collectors.toList());		
+		this.plats = commande.getPlats().stream().map(plat -> new PlatDTO(plat)).collect(Collectors.toList());		
 		this.etatCommande = commande.getEtat();
 		this.montant = commande.getMontant();
 	

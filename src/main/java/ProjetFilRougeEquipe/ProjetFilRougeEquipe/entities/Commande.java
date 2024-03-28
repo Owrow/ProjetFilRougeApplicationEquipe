@@ -3,6 +3,7 @@ package ProjetFilRougeEquipe.ProjetFilRougeEquipe.entities;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +32,7 @@ public class Commande {
 	@JoinColumn(name = "id_table")
 	private Table table;
 	
+
 	 @ManyToMany(fetch = FetchType.EAGER)
 		@JoinTable(
 				name = "plats_commandes",

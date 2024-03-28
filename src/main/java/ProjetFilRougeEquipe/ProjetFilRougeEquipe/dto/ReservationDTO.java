@@ -27,7 +27,9 @@ public class ReservationDTO {
 		this.id = reservation.getId();
 		this.client = reservation.getClient();
 		this.id_restaurant = reservation.getRestaurant().getId();
-		this.id_table = reservation.getTable().getId();
+		if(reservation.getTable() != null) {
+			this.id_table = reservation.getTable().getId();
+		}
 		this.tailleGroupe = reservation.getTailleGroupe();
 		this.etatReservation = reservation.getEtat();
 		this.dateReservation = reservation.getDateReservation();

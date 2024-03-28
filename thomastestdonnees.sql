@@ -170,7 +170,6 @@ CREATE TABLE plats_commandes (
 	updatedAt          DATETIME DEFAULT CURRENT_TIMESTAMP,
  
 	deletedAT          DATETIME NULL,
-	id INT PRIMARY KEY IDENTITY	,
 	id_commande  INT,
 	id_plat INT
 	);

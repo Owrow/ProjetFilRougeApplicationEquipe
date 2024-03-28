@@ -70,8 +70,7 @@ public class CommandeService {
 		List<Plat> plats = commande.getPlats();
 		
 		plats.add(platAjoutCommande);
-		
-	
+
 		return cderepo.save(commande);
 		
 	}
