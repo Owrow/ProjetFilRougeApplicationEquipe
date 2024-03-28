@@ -41,8 +41,8 @@ public class CommandeRest {
 	}
 
 	@PostMapping
-	public ResponseEntity<Commande> ouvertureCde(@RequestBody Commande commande) {
-		Commande commandeCree = cdeservice.ouvertureCde(commande.getClient().getId(), commande.getTable().getId());
+	public ResponseEntity<Commande> ouvertureCde(@RequestParam int id_client, @RequestParam int id_table) {
+		Commande commandeCree = cdeservice.ouvertureCde(id_client, id_table);
 		return new ResponseEntity<>(commandeCree, HttpStatus.CREATED);
 	}
 
